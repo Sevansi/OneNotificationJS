@@ -62,9 +62,42 @@ notificationMain.showNotification({
 
 #### Пример использования HTML и валидации:
 
-... *(как в предыдущем примере)* ...
+```Javascript
+notificationMain.showNotification({
+    type: 'warning',
+    title: 'Change password?',
+    text: 'The password will be changed for all selected users except you!',
+    html: [
+        $('<input>').addClass('password-input').attr({
+            'placeholder': 'Password',
+            'type': 'text',
+            'autocomplete': 'off',
+            'name': 'password',
+            'title': 'The password must contain at least 8 characters'
+        }).prop('required', true),
+    ],
+    preConfirm: (e) => {
+        const password = $('.password-input').val();
 
----
+        if (password === '') {
+            notificationMain.showValidationMessage('Fill in the password field!', e);
+            return false;
+        }
+        else if (password.length < 8) {
+            notificationMain.showValidationMessage('Password must be at least 8 characters long!', e);
+            return false;
+        }
+        return true;
+    },
+    confirmBTN: true,
+    cancelBTN: true,
+    closeOnTime: 320000,
+    closeBTN: false,
+    fixed: true,
+});
+```
+
+При использование функции preConfirm вы так-же можете передать внутарь класса массив любых значений, в таком случае функция preConfirm будет считать пройденой успешно! Если вам нужно отменить выполнения просто передайте `false`
 
 ### `showValidationMessage(text, obj)`
 
