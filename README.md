@@ -32,7 +32,7 @@ const myNotification = new oneNotification("myNotificationName", {
 - `removeLastAlert`: Удалять ли последнее уведомление при достижении `alertsLimit`. По умолчанию `false`.
 - `width`: Ширина уведомлений. По умолчанию '200px'.
 
-## Опции для каждого уведомления
+### Опции для каждого уведомления
 
 При создании каждого уведомления вы можете задать следующие опции:
 
@@ -40,16 +40,25 @@ const myNotification = new oneNotification("myNotificationName", {
 - `HTML`: Вставка своего HTML-кода через массив.
 - `preConfirm`: Функция для выполнения проверки после нажатия кнопки "Подтвердить".
 - `confirmBTN`, `cancelBTN`, `closeBTN`: Показать или скрыть соответствующие кнопки.
-- `fixed`: Зафиксировать уведомление на странице.
+- `fixed`: Зафиксировать уведомление на странице(не будет пропадать при достижение alertsLimit, всегда будет видно).
 - `confirmBTNText`, `cancelBTNText`: Текст для кнопок "Подтвердить" и "Отмена".
 - `confirmBTNFocus`, `cancelBTNFocus`: Установить фокус на соответствующую кнопку.
 - `type`, `title`, `text`: Тип, заголовок и текст уведомления.
 
-## Методы
+### Методы
 
 ### `showNotification(params)`
 
 Отображает уведомление на странице с учетом переданных параметров.
+
+```Javascript
+notificationMain.showNotification({
+    type: 'warning',
+    title: 'Add a new user?',
+    confirmBTN: true,
+    cancelBTN: true,
+})
+```
 
 #### Пример использования HTML и валидации:
 
