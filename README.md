@@ -6,15 +6,15 @@
 
 ## Установка
 
-\`\`\`html
+```html
 <script src="path/to/oneNotificationJS.js"></script>
-\`\`\`
+```
 
 ## Инициализация
 
 При инициализации экземпляра класса `oneNotification` вы можете задать следующие опции, которые будут применяться ко всем уведомлениям в этом блоке:
 
-\`\`\`javascript
+```javascript
 const myNotification = new oneNotification("myNotificationName", {
     position: 'bottom-center',
     alertsLimit: 5,
@@ -22,7 +22,7 @@ const myNotification = new oneNotification("myNotificationName", {
     removeLastAlert: false,
     width: '200px'
 });
-\`\`\`
+```
 
 ### Опции для инициализации
 
