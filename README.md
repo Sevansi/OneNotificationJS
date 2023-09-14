@@ -39,6 +39,7 @@ const myNotification = new oneNotification("myNotificationName", {
 - `closeOnTime`: Время в миллисекундах, через которое уведомление закроется.
 - `HTML`: Вставка своего HTML-кода через массив.
 - `preConfirm`: Функция для выполнения проверки после нажатия кнопки "Подтвердить".
+- `willOpen`: Функция которая сработает при открытие уведомления.
 - `confirmBTN`, `cancelBTN`, `closeBTN`: Показать или скрыть соответствующие кнопки.
 - `fixed`: Зафиксировать уведомление на странице(не будет пропадать при достижение alertsLimit, всегда будет видно).
 - `confirmBTNText`, `cancelBTNText`: Текст для кнопок "Подтвердить" и "Отмена".
@@ -48,7 +49,7 @@ const myNotification = new oneNotification("myNotificationName", {
 
 ### Методы
 
-### `showNotification(params)`
+#### `showNotification(params)`
 
 Отображает уведомление на странице с учетом переданных параметров.
 
@@ -100,23 +101,22 @@ notificationMain.showNotification({
 
 При использование функции preConfirm вы также можете передать внутрь класса массив любых значений, в таком случае функция preConfirm будет считать пройденой успешно! Если вам нужно отменить выполнения просто передайте `false`
 
-### `showValidationMessage(text, obj)`
+#### `showValidationMessage(text, obj)`
 
 Этот метод позволяет показать сообщение валидации в определенном блоке уведомления.
 
 - `text`: Текст сообщения валидации.
 - `obj`: Блок уведомления, в который будет добавлено сообщение. По умолчанию, это событие (`event`) из функции.
 
-#### Пример:
+Для правильного использования, передайте первым аргументом текст, а второым event полученый из функции
 
-\`\`\`javascript
-preConfirm: (e) => {
-    const password = $('.password-input').val();
+```Javascript
+preConfirm: (event) => {
+    notificationMain.showValidationMessage('message', event);
+},
+```
 
-    if (password === '') {
-        notificationMain.showValidationMessage('Fill in the password field!', e);
-        return false;
-    }
-    ...
-}
-\`\`\`
+Или если хотите можете выводить валидацию в другой блок, можете его найти по ID добавляным через `html`.
+
+## Примеры:
+
