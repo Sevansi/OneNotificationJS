@@ -1,0 +1,305 @@
+.one-notification-wrapper
+	--ont-main-border-radius: 8px
+	--block-border-radius: 12px
+.one-notification-wrapper, .one-notification-wrapper.light
+	--ont-bg-main: rgba(255,255,255,0.8)
+	--ont-bg-main-blur: blur(8px)
+	--ont-color-main: #677483
+
+	--ont-color-error: #ec4771
+	--ont-color-warning: #f0835c
+	--ont-color-success: #4ac07b
+
+	--ont-color-fixed-block: 0px 0px 2px 2px rgba(40, 165, 255, 0.75)
+
+	--ont-color-input-border: #b8bfce
+	--ont-color-input-main: #1d1d25
+	--ont-color-input-focus: #0095ff
+
+	--ont-color-select-border: #b8bfce
+
+	--ont-bg-validation-message: rgba(255, 60, 0, 0.075)
+	--ont-color-icon-validation-message: #f0835c
+
+	--ont-color-button: #606280
+	--ont-color-button-disabled: #cbcbda
+	--ont-color-button-border-confirm: #20cf69
+	--ont-color-button-border-cancel: #fd468c
+	--ont-bg-button-hover: #edeff5
+	--ont-color--button-border: #0095ff
+	--ont-color-border-focus: #0095ff
+
+	--ont-timer-bg: #dce2e9
+	--ont-timer-color: #677483
+
+	--ont-color-close: #b0b8c5
+	--ont-color-close-hover: #677483
+
+.one-notification-wrapper.dark
+	--ont-bg-main: rgba(24, 24, 32, 0.8)
+	--ont-bg-main-blur: blur(8px)
+	--ont-color-main: #dbe3ec
+
+	--ont-color-error: #ec4771
+	--ont-color-warning: #f0835c
+	--ont-color-success: #4ac07b
+
+	--ont-color-fixed-block: 0px 0px 2px 2px rgba(40, 165, 255, 0.75)
+
+	--ont-color-input-border: #b8bfce
+	--ont-color-input-main: #c7c7db
+	--ont-color-input-focus: #0095ff
+
+	--ont-color-select-border: #b8bfce
+
+	--ont-bg-validation-message: rgba(255, 200, 183, 0.25)
+	--ont-color-icon-validation-message: #f0835c
+
+	--ont-color-button: #bdc7d3
+	--ont-color-button-disabled: #cbcbda
+	--ont-color-button-border-confirm: #20cf69
+	--ont-color-button-border-cancel: #fd468c
+	--ont-bg-button-hover: #202433
+	--ont-color--button-border: #0095ff
+	--ont-color-border-focus: #0095ff
+
+	--ont-timer-bg: #677483
+	--ont-timer-color: #c2ceda
+
+	--ont-color-close: #677483
+	--ont-color-close-hover: #d0d4da
+.one-notification-wrapper
+	position: fixed
+	display: flex
+	flex-direction: column
+	gap: 24px
+	z-index: 100000000000
+
+	&.top
+		top: 32px
+	&.bottom
+		bottom: 32px
+	&.left
+		left: 32px
+	&.right
+		right: 32px
+	&.center
+		left: 50%
+		transform: translateX(-50%)
+	&.center-center
+		top: 50%
+		left: 50%
+		transform: translate(-50%, -50%)
+
+	.animation-show
+		@keyframes animation-show
+			0%
+				translate: 0px 150%
+				opacity: 0
+			100%
+				translate: 0px 0%
+				opacity: 1
+	.animation-hide
+		@keyframes animation-hide
+			0%
+				translate: 0px 0px
+				opacity: 1
+			40%
+				translate: -25% 0px
+				opacity: 1
+			70%
+				opacity: 0
+			100%
+				translate: 150% 0px
+				opacity: 0
+
+.one-notification-box
+	background-color: var(--ont-bg-main)
+	backdrop-filter: var(--ont-bg-main-blur)
+	padding: 16px 12px
+	border-radius: var(--ont-main-border-radius)
+	box-shadow: 0px 1px 15px 1px rgba(12, 21, 63, 0.225)
+	display: flex
+	flex-direction: column
+	text-align: center
+	position: relative
+	gap: 12px
+	word-break: break-word
+
+	color: var(--ont-color-main)
+	font-size: 1rem
+	font-weight: 400
+	font-family: 'Rubik', Arial, sans-serif
+	line-height: 1.5em
+
+	&.error
+		.icon
+			color: var(--ont-color-error)
+	&.warning
+		.icon
+			color: var(--ont-color-warning)
+	&.success
+		.icon
+			color: var(--ont-color-success)
+
+	&.no-close
+		.notification-close
+			display: none
+	&.fixed
+		box-shadow: var(--ont-color-fixed-block)
+
+	&.animation-show
+		animation: animation-show
+		animation-duration: 330ms
+		animation-timing-function: cubic-bezier(.25,1.10,.25,1.10)
+		transform-origin: 100% 100%
+	&.animation-hide
+		animation: animation-hide
+		animation-duration: 750ms
+		animation-timing-function: cubic-bezier(.25,1.10,.25,1.10)
+		transform-origin: 0% 0%
+	.notification-container.icon
+		margin: auto
+		span
+			font-size: 2.6rem
+			display: block
+	.notification-container.title
+		margin: auto
+		font-weight: 600
+		font-size: 0.95rem
+		text-transform: uppercase
+	.notification-container.text
+		margin: auto
+		font-weight: 400
+		font-size: 0.9rem
+	.notification-container.html
+		display: flex
+		flex-direction: column
+		gap: 6px
+		justify-content: center
+		align-items: center
+		input
+			border-radius: var(--ont-main-border-radius)
+			border: 2px solid var(--ont-color-input-border)
+			background-color: transparent
+			width: 80%
+			padding: 8px 16px
+			outline: none
+			font-weight: 500
+			color: var(--ont-color-input-main)
+			font-family: inherit
+			font-size: 0.8rem
+			&::placeholder
+				font-weight: 400
+				color: var(--ont-color-input-main)
+				font-family: inherit
+				font-size: 0.8rem
+			&:focus
+				border-color: var(--ont-color-input-focus)
+
+		select
+			border-radius: var(--ont-main-border-radius)
+			border: 2px solid var(--ont-color-select-border)
+			background-color: transparent
+			padding: 8px 16px
+			outline: none
+			font-weight: 400
+			color: var(--ont-color-input-main)
+			font-family: inherit
+			font-size: 0.8rem
+			&:focus
+				border-color: var(--ont-color-input-focus)
+	.notification-container.validation
+		width: 100%
+		margin: auto
+		display: flex
+		flex-direction: column
+		gap: 4px
+		align-items: center
+		justify-content: center
+		padding: 6px 16px
+		border-radius: var(--ont-main-border-radius)
+		background-color: var(--ont-bg-validation-message)
+		font-size: 0.9rem
+		.validation-text
+			text-wrap: balance
+		span.icon
+			font-size: 2rem
+			color: var(--ont-color-icon-validation-message)
+	.notification-container.button
+		display: flex
+		grid-template-columns: 1fr 1fr
+		justify-content: center
+		align-items: center
+		gap: 6px
+		button
+			margin: 0
+			padding: 0
+			outline: 0
+			border: 0
+			cursor: pointer
+			color: var(--ont-color-button) //#606280
+			width: auto
+			height: auto
+			padding: 6px 16px
+			border-radius: var(--ont-main-border-radius)
+			border: 2px solid transparent
+			font-weight: 400
+			font-family: inherit
+			transition: 150ms
+			font-size: 0.8rem
+			background-color: transparent
+			&[disabled]
+				color: var(--ont-color-button-disabled) //#cbcbda
+				cursor: default
+			&.btn-confirm
+				border-color: var(--ont-color-button-border-confirm) //#20cf69
+			&.btn-cancel
+				border-color: var(--ont-color-button-border-cancel) // #fd468c
+			&:not([disabled]):hover
+				background-color: var(--ont-bg-button-hover) // #edeff5
+				border-color: var(--ont-color--button-border) // #0095ff
+			&:not([disabled]):focus
+				border: 2px solid var(--ont-color-border-focus) // #0095ff
+	.notification-container.timer
+		margin-top: 8px
+		width: 100%
+		height: 4px
+		position: relative
+		background-color: var(--ont-timer-bg) // #d0d4da
+		border-radius: var(--ont-main-border-radius)
+		overflow: hidden
+		> .time
+			width: 100%
+			height: 100%
+			background-color: var(--ont-timer-color) // #677483
+			border-radius: var(--ont-main-border-radius)
+			display: block
+			position: absolute
+			top: 0
+			left: 0
+			transform: scaleX(1)
+			transform-origin: 0 50%
+			&.animation-time
+				animation: animation-time
+				animation-timing-function: linear
+				animation-fill-mode: forwards
+			@keyframes animation-time
+				0%
+					transform: scaleX(1)
+				100%
+					transform: scaleX(0)
+	.notification-close
+		position: fixed
+		right: 6px
+		top: 6px
+		cursor: pointer
+		color: var(--ont-color-close) // #d0d4da
+		transition: 150ms ease-in-out
+		z-index: 100
+		span
+			display: block
+			font-weight: 100
+			font-size: 1.4rem
+		&:hover
+			color: var(--ont-color-close-hover) // #677483
