@@ -1,19 +1,19 @@
 # oneNotification JavaScript Library
 
-## Описание
+## Description
 
-`oneNotification` — это JavaScript библиотека для создания и управления уведомлениями на вашей веб-странице.
+`oneNotification` — This is a JavaScript library for creating and managing notifications on your web page.
 
-## Установка
+## Installation
 
-Для работы используется библиотека `Jquery` и файл `css` стилей.
+For operation, the `Jquery` library and a `css` stylesheet file are used.
 
 Jquery
 ```html
 <script src="<?php echo PATH_JS .'jquery-3.6.0.js';?>"></script>
 ```
 
-oneNotifacation js
+oneNotification js
 ```html
 <script src="path/to/oneNotificationJS.js"></script>
 ```
@@ -28,78 +28,85 @@ icons
 <link href='https://fonts.googleapis.com/icon?family=Material+Icons+Round' rel="stylesheet" type="text/css">
 ```
 
-#### Порядок установки
-- С начало подключите библиотеку `jquery`.
-- Остальные файлы могут быть подключены в любом порядку.
+#### Installation Order
+- First, connect the `jquery` library.
+- The rest of the files can be connected in any order.
 
-#### Иконки
-При создание была использована библиотека иконок google font.
+#### CSS File
 
-~ Иконки могут быть заменены на любые свои.
+Inside the CSS file at the beginning, there are variables that you can change for quick design modification.
+You can use these variables to override the design of the notifications.
 
-Чтобы установить всои иконки при иницализации укажите icons: {} где будут переданы парметры для `success`, `warning`, `error` иконок соотвествено.
+#### Icons
+The Google Font icon library was used during creation.
 
-Пример установки своей иконки font awesome для события `success`, `warning`.
+~ Icons can be replaced with any of your own.
+
+To set your own icons during initialization, specify icons: {} where parameters will be passed for `success`, `warning`, and `error` icons respectively.
+
+Example of setting your own `Font Awesome` icon for the `success`, `warning` events.
 
 ```Javascript
 const notificationMain = new oneNotification('main-alert', {
     ...
 	icons: {
         'success': $('<i>').addClass('fa-solid fa-check'),
-        'warrning': $('<i>').addClass('fa-solid fa-triangle-exclamation'),
+        'warning': $('<i>').addClass('fa-solid fa-triangle-exclamation'),
         ...
     },
     ...
 });
 ```
 
-## Инициализация
+To change the validation icon, use icons: `validation: ...,`.
 
-При инициализации экземпляра класса `oneNotification` вы можете задать следующие опции, которые будут применяться ко всем уведомлениям в этом блоке:
+## Initialization
+
+During the initialization of the `oneNotification` class instance, you can set the following options, which will apply to all notifications in this block.
 
 ```javascript
 const myNotification = new oneNotification("myNotificationName", {
-    position: 'bottom-center',
+    position: 'bottomm-center',
     alertsLimit: 5,
-    equeLimit: 1000,
+    queueLimit: 1000,
     removeLastAlert: false,
-    width: '200px',
+    width: '300px',
     
 });
 ```
 
-### Опции для инициализации
+### Initialization Options
 
-- `position`: Позиция уведомлений на странице. По умолчанию `bottom-center`. Допустимые значения: `top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right`, `center-center`.
-- `alertsLimit`: Максимальное количество активных уведомлений на странице. По умолчанию `5`.
-- `equeLimit`: Максимальное количество уведомлений в очереди. По умолчанию `1000`.
-- `removeLastAlert`: Удалять ли последнее уведомление при достижении `alertsLimit`. По умолчанию `false`, если включенно, будет удалять последнее уведомление, кроме тех у кого есть fixed.
-- `width`: Ширина уведомлений. По умолчанию `200px`.
-- `theme`: Установка темы. По умолчанию `light`.
-- `icons`: Установка своих иконок. По умолчанию используется с `google fonts`.
-- `debug`: Включить режим отладки, будут видны сообщения о загрузке, уаделение и т.д. В консоли.
-- С помощью добавления кастомного имени при иницализации вы можете добвлять свои стили, свойства, события для каждого отдельного блока const myNotification = new oneNotification(`myNotificationName`, {params})
+- `position`: Position of notifications on the page. Default is `bottom-center`. Allowed values: `top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right`, `center-center`.
+- `alertsLimit`: The maximum number of active notifications on the page. Default is `5`.
+- `queueLimit`: The maximum number of notifications in the queue. Default is `1000`.
+- `removeLastAlert`: Whether to remove the last notification when `alertsLimit` is reached. Default is `false`. If enabled, it will remove the last notification, except those that are fixed.
+- `width`: Width of notifications. Default is `300px`.
+- `theme`: Theme setting. Default is `light`.
+- `icons`: Setting your own icons. Default is using `google fonts`.
+- `debug`: Enable debug mode; loading messages, removal, etc., will be visible in the console.
+- By adding a custom name during initialization, you can add your own styles, properties, events for each separate block, e.g., `const myNotification = new oneNotification('myNotificationName', {params})`
 
-### Опции для каждого уведомления
+### Options for Each notification
 
-При создании каждого уведомления вы можете задать следующие опции:
+When creating each notification, you can set the following options:
 
-- `closeOnTime`: Время в миллисекундах, через которое уведомление закроется.
-- `HTML`: Вставка своего HTML-кода через массив.
-- `preConfirm`: Функция для выполнения проверки после нажатия кнопки "Подтвердить".
-- `willOpen`: Функция которая сработает при открытие уведомления.
-- `confirmBTN`, `cancelBTN`, `closeBTN`: Показать или скрыть соответствующие кнопки.
-- `fixed`: Зафиксировать уведомление на странице(не будет пропадать при достижение alertsLimit, всегда будет видно).
-- `confirmBTNText`, `cancelBTNText`: Текст для кнопок "Подтвердить" и "Отмена".
-- `confirmBTNFocus`, `cancelBTNFocus`: Установить фокус на соответствующую кнопку (устанавливается принудительно, если есть несколько фокусов можетет быть конфликт).
-- `type`, `title`, `text`: Тип, заголовок и текст уведомления (title вы можете установить свой, или оставить пустое поле, тогда будет взят стандартный подходящий к ситации `error` -> 'error', `warning` -> 'warning', `success` -> 'success').
-- `customClass`: Установка своего класса, если хотите добавить свои стили, можно дабавить несколько классов
+- `closeOnTime`: Time in milliseconds after which the notification will close.
+- `HTML`: Insert your own HTML code through an array.
+- `preConfirm`: Function to perform validation after clicking the "Confirm" button.
+- `willOpen`: Function that will trigger upon the opening of the notification.
+- `confirmBTN`, `cancelBTN`, `closeBTN`: Show or hide corresponding buttons.
+- `fixed`: Pin the notification to the page (it will not disappear when reaching `alertsLimit`, will always be visible).
+- `confirmBTNText`, `cancelBTNText`: Text for the "Confirm" and "Cancel" buttons.
+- `confirmBTNFocus`, `cancelBTNFocus`: Set focus on the corresponding button (forced setting; if there are multiple focuses, there may be a conflict).
+- `type`, `title`, `text`: Type, title, and text of the notification (you can set your own title, or leave it empty, then a standard approach suitable for the situation will be used; `error` -> 'error', `warning` -> 'warning', `success` -> 'success').
+- `customClass`: Setting your own class. If you want to add your styles, you can add multiple classes.
 
-### Методы
+### Methods
 
 #### `showNotification(params)`
 
-Отображает уведомление на странице с учетом переданных параметров.
+Displays a notification on the page, taking into account the passed parameters.
 
 ```Javascript
 notificationMain.showNotification({
@@ -112,14 +119,14 @@ notificationMain.showNotification({
 
 #### `showValidationMessage(text, obj)`
 
-Этот метод позволяет показать сообщение валидации в определенном блоке уведомления.
+This method allows you to display a validation message in a specific notification block.
 
-- `text`: Текст сообщения валидации.
-- `obj`: Блок уведомления, в который будет добавлено сообщение. По умолчанию, это событие (`event`) из функции.
+- `text`: Text of the validation message.
+- `obj`: The notification block where the message will be added. By default, this is the `event` from the function.
 
-Для правильного использования, передайте первым аргументом текст, а второым event полученый из функции
+For proper usage, pass the text as the first argument and the event obtained from the function as the second argument.
 
-#### Пример использования HTML и валидации:
+#### Example of using HTML and validation:
 
 ```Javascript
 notificationMain.showNotification({
@@ -151,7 +158,7 @@ notificationMain.showNotification({
 });
 ```
 
-При использование функции preConfirm вы также можете передать внутрь класса массив любых значений, в таком случае функция preConfirm будет считать пройденой успешно! Если вам нужно отменить выполнения просто передайте `false`
+When using the `preConfirm` function, you can also pass an array of any values inside the class; in this case, the `preConfirm` function will be considered successful! If you need to cancel the execution, simply pass `false`.
 
 ```Javascript
 preConfirm: (event) => {
@@ -159,12 +166,11 @@ preConfirm: (event) => {
 },
 ```
 
-Или если хотите можете выводить валидацию в другой блок, можете его найти по ID добавляным через `html`.
+Or if you prefer, you can display the validation in another block, which you can find by the ID added through `html`.
 
-#### Используйте .then()
+#### Use .then()
 
-Вы можете использовать ключевое слово then() для выполнения действия после закрытия уведомления.
-Получите параметры закрытия через любую перменую используемую в функции
+You can use the `then()` keyword to perform an action after closing the notification. Get the closing parameters through any variable used in the function.
 
 ```Javascript
 .then(result => {
@@ -172,29 +178,29 @@ preConfirm: (event) => {
 });
 ```
 
-В result вы получите параметры
+In the result, you will receive the following parameters:
 
-- `isClose`: При закрытие на кнопку закрытия.
-- `isConfirm`: При нажатие на кнопку подтвердить.
-- `isCancel`: При нажатие на кнопку отмены.
-- `isTimeout`: При истичение времени.
-- `isLastClose`: При закрытие, если он был закрыт при использование параметра `removeLastAlert` = true.
+- `isClose`: When the close button is clicked.
+- `isConfirm`: When the confirm button is clicked.
+- `isCancel`: When the cancel button is clicked.
+- `isTimeout`: When the time expires.
+- `isLastClose`: When closing, if it was closed while using the `removeLastAlert` = true parameter.
 
-Так-же если вы использали функцию `preConfirm` и вернули несколько значений, то при закрытие через `isConfirm` вы получите все свои переданые параметры.
+Also, if you have used the `preConfirm` function and returned multiple values, then upon closure through `isConfirm`, you will receive all the parameters you have passed.
 
-## Примеры:
-### Базовый вариант иницализации
+## Examples:
+### Basic initialization variant
 
 ```Javascript
 const notificationMain = new oneNotification('main-alert', {
-	position: 'bottom-center',
+	position: 'bottomm-center',
 	alertsLimit: 3,
 	width: '320px',
 	removeLastAlert: true,
 });
 ```
 
-### Базовый вариант вызова
+### Basic call variant
 
 ```Javascript
 notificationMain.showNotification({
@@ -209,7 +215,7 @@ notificationMain.showNotification({
 })
 ```
 
-### Сложный пример, использования всех функций.
+### A complex example, using all the functions.
 
 ```Javascript
 notificationMain.showNotification({
@@ -246,7 +252,7 @@ notificationMain.showNotification({
 }).then(result => {
     if (result.isConfirm) {
         $.ajax({
-            // Выполнения ajax запроса, или другая ваша проверка.
+            // Executing an ajax request, or another check of yours.
             type: 'POST',
             url: '...',
             data: { 'idRow': idRow, 'password': result.value },
@@ -254,8 +260,8 @@ notificationMain.showNotification({
             success: function (response) {
                 response.forEach(response => {
                     notificationMain.showNotification({
-                        type: response.status, // Вывод статуса ошибки или успешно
-                        text: response.message, // Сообщение
+                        type: response.status, // Output error or success status
+                        text: response.message, // Message
                         closeOnTime: 5000,
                     });
                 });
@@ -264,34 +270,3 @@ notificationMain.showNotification({
     }
 });
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
