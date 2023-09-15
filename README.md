@@ -6,31 +6,52 @@
 
 ## Установка
 
-Для работы используется библиотека `Jqeury` и файл `css` стилей.
+Для работы используется библиотека `Jquery` и файл `css` стилей.
 
+Jquery
 ```html
 <script src="<?php echo PATH_JS .'jquery-3.6.0.js';?>"></script>
 ```
 
+oneNotifacation js
 ```html
 <script src="path/to/oneNotificationJS.js"></script>
 ```
 
+oneNotification css
 ```html
 <link href="onenotification.css" rel="stylesheet" type="text/css">
 ```
 
-##### Иконки
+icons
+```html
+<link href='https://fonts.googleapis.com/icon?family=Material+Icons+Round' rel="stylesheet" type="text/css">
+```
+
+#### Порядок установки
+- С начало подключите библиотеку `jquery`.
+- Остальные файлы могут быть подключены в любом порядку.
+
+#### Иконки
 При создание была использована библиотека иконок google font.
 
 ~ Иконки могут быть заменены на любые свои.
-```html
-<link href='https://fonts.googleapis.com/icon?family=Material+Icons+Outlined' rel="stylesheet" type="text/css">
-```
 
-##### Порядок установки
-- С начало подключити библиотеку `jqeury`.
-- Остальные файлы могут быть подключены в любом порядку.
+Чтобы установить всои иконки при иницализации укажите icons: {} где будут переданы парметры для `success`, `warning`, `error` иконок соотвествено.
+
+Пример установки своей иконки font awesome для события `success`, `warning`.
+
+```Javascript
+const notificationMain = new oneNotification('main-alert', {
+    ...
+	icons: {
+        'success': $('<i>').addClass('fa-solid fa-check'),
+        'warrning': $('<i>').addClass('fa-solid fa-triangle-exclamation'),
+        ...
+    },
+    ...
+});
+```
 
 ## Инициализация
 
@@ -127,11 +148,6 @@ notificationMain.showNotification({
         }
         return true;
     },
-    confirmBTN: true,
-    cancelBTN: true,
-    closeOnTime: 320000,
-    closeBTN: false,
-    fixed: true,
 });
 ```
 
@@ -145,5 +161,137 @@ preConfirm: (event) => {
 
 Или если хотите можете выводить валидацию в другой блок, можете его найти по ID добавляным через `html`.
 
+#### Используйте .then()
+
+Вы можете использовать ключевое слово then() для выполнения действия после закрытия уведомления.
+Получите параметры закрытия через любую перменую используемую в функции
+
+```Javascript
+.then(result => {
+    console.log(result);
+});
+```
+
+В result вы получите параметры
+
+- `isClose`: При закрытие на кнопку закрытия.
+- `isConfirm`: При нажатие на кнопку подтвердить.
+- `isCancel`: При нажатие на кнопку отмены.
+- `isTimeout`: При истичение времени.
+- `isLastClose`: При закрытие, если он был закрыт при использование параметра `removeLastAlert` = true.
+
+Так-же если вы использали функцию `preConfirm` и вернули несколько значений, то при закрытие через `isConfirm` вы получите все свои переданые параметры.
+
 ## Примеры:
+### Базовый вариант иницализации
+
+```Javascript
+const notificationMain = new oneNotification('main-alert', {
+	position: 'bottom-center',
+	alertsLimit: 3,
+	width: '320px',
+	removeLastAlert: true,
+});
+```
+
+### Базовый вариант вызова
+
+```Javascript
+notificationMain.showNotification({
+    type: 'warning',
+    text: 'Add a new user?',
+    confirmBTN: true,
+    cancelBTN: true,
+    closeOnTime: 12000,
+    closeBTN: false,
+    fixed: true,
+    confirmBTNFocus: true,
+})
+```
+
+### Сложный пример, использования всех функций.
+
+```Javascript
+notificationMain.showNotification({
+    type: 'warning',
+    title: 'Change password?',
+    text: 'The password will be changed for all selected users except you!',
+    html: [
+        $('<input>').addClass('password-input').attr({
+            'placeholder': 'Password',
+            'type': 'text',
+            'autocomplete': 'off',
+            'name': 'password',
+            'title': 'The password must contain at least 8 characters'
+        }).prop('required', true),
+    ],
+    preConfirm: (e) => {
+        const password = $('.password-input').val();
+
+        if (password == '') {
+            notificationMain.showValidationMessage('Fill in the password field!', e);
+            return false;
+        }
+        else if (password.length < 8) {
+            notificationMain.showValidationMessage('Password must be at least 8 characters long!', e);
+            return false;
+        }
+        else return password;
+    },
+    confirmBTN: true,
+    cancelBTN: true,
+    closeOnTime: 32000,
+    closeBTN: false,
+    fixed: true,
+}).then(result => {
+    if (result.isConfirm) {
+        $.ajax({
+            // Выполнения ajax запроса, или другая ваша проверка.
+            type: 'POST',
+            url: '...',
+            data: { 'idRow': idRow, 'password': result.value },
+            dataType: 'json',
+            success: function (response) {
+                response.forEach(response => {
+                    notificationMain.showNotification({
+                        type: response.status, // Вывод статуса ошибки или успешно
+                        text: response.message, // Сообщение
+                        closeOnTime: 5000,
+                    });
+                });
+            },
+        });
+    }
+});
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
