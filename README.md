@@ -6,11 +6,31 @@
 
 ## Установка
 
-Для работы используется библиотека `Jqeury` и файл css стилей.
+Для работы используется библиотека `Jqeury` и файл `css` стилей.
+
+```html
+<script src="<?php echo PATH_JS .'jquery-3.6.0.js';?>"></script>
+```
 
 ```html
 <script src="path/to/oneNotificationJS.js"></script>
 ```
+
+```html
+<link href="onenotification.css" rel="stylesheet" type="text/css">
+```
+
+##### Иконки
+При создание была использована библиотека иконок google font.
+
+~ Иконки могут быть заменены на любые свои.
+```html
+<link href='https://fonts.googleapis.com/icon?family=Material+Icons+Outlined' rel="stylesheet" type="text/css">
+```
+
+##### Порядок установки
+- С начало подключити библиотеку `jqeury`.
+- Остальные файлы могут быть подключены в любом порядку.
 
 ## Инициализация
 
@@ -22,7 +42,8 @@ const myNotification = new oneNotification("myNotificationName", {
     alertsLimit: 5,
     equeLimit: 1000,
     removeLastAlert: false,
-    width: '200px'
+    width: '200px',
+    
 });
 ```
 
@@ -31,9 +52,11 @@ const myNotification = new oneNotification("myNotificationName", {
 - `position`: Позиция уведомлений на странице. По умолчанию `bottom-center`. Допустимые значения: `top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right`, `center-center`.
 - `alertsLimit`: Максимальное количество активных уведомлений на странице. По умолчанию `5`.
 - `equeLimit`: Максимальное количество уведомлений в очереди. По умолчанию `1000`.
-- `removeLastAlert`: Удалять ли последнее уведомление при достижении `alertsLimit`. По умолчанию `false`.
+- `removeLastAlert`: Удалять ли последнее уведомление при достижении `alertsLimit`. По умолчанию `false`, если включенно, будет удалять последнее уведомление, кроме тех у кого есть fixed.
 - `width`: Ширина уведомлений. По умолчанию `200px`.
 - `theme`: Установка темы. По умолчанию `light`.
+- `icons`: Установка своих иконок. По умолчанию используется с `google fonts`.
+- `debug`: Включить режим отладки, будут видны сообщения о загрузке, уаделение и т.д. В консоли.
 - С помощью добавления кастомного имени при иницализации вы можете добвлять свои стили, свойства, события для каждого отдельного блока const myNotification = new oneNotification(`myNotificationName`, {params})
 
 ### Опции для каждого уведомления
